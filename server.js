@@ -56,8 +56,10 @@ app.post('/api/duel', (req, res) => {
         if (compHealthAfterAttack > playerHealthAfterAttack) {
             playerRecord.losses++
             res.status(200).send('You lost!')
+            rollbar.log('Player Lost')
         } else {
             playerRecord.losses++
+            rollbar.info('Player Won')
             res.status(200).send('You won!')
         }
     } catch (error) {
@@ -68,14 +70,37 @@ app.post('/api/duel', (req, res) => {
 
 app.get('/api/player', (req, res) => {
     try {
+        rollbar.info('players shown')
         res.status(200).send(playerRecord)
     } catch (error) {
-        console.log('ERROR GETTING PLAYER STATS', error)
+        rollbar.error('ERROR GETTING PLAYER STATS', error)
         res.sendStatus(400)
     }
 })
 
+var Rollbar = require("rollbar");
+var rollbar = new Rollbar({
+  accessToken: '334feea1071e43b89e2ff9fdfeef806e',
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+
+// record a generic message and send it to Rollbar
+rollbar.log("Hello world!");
+
+
+
+
+
+
+
+
+
 const port = process.env.PORT || 3000
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
