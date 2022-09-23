@@ -85,15 +85,25 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true
 });
 
-// record a generic message and send it to Rollbar
+
 rollbar.log("Hello world!");
 
 
 
+try {
+    nonExistentFunction();
+  } catch (error) {
+    rollbar.error(error)};
 
 
-
-
+    try{
+        shuffleArray();
+    }catch (error) {
+        rollbar.critical(error)};
+    try{
+        shuffleArray();
+    }catch (error) {
+        rollbar.critical(error)};
 
 
 const port = process.env.PORT || 3000
