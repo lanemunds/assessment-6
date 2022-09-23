@@ -21,20 +21,20 @@ test('Title shows up when page loads', async () => {
     expect(displayed).toBe(true)
     await driver.sleep(3000)
 })
-test('Choices are shown when the button is clicked', async () => {
-    const choices = await driver.findElement(By.id('choose-header'))
-    const displayed = await choices.isDisplayed()
+test('Choices are shown when the draw button is clicked', async () => {
     await driver.findElement(By.id('draw')).click()
-    await driver.sleep(3000)
-    expect(displayed).toBe(true)
+    await driver.sleep(1000)
+    const choices = await driver.findElement(By.id('choices'))
+    const disp2 = await choices.isDisplayed()
+    expect(disp2).toBe(true)
     await driver.sleep(3000)
 })
 test('Player duo is shown when a choice is clicked', async () => {
-    const playerDuo = await driver.findElement(By.id('player-duo'))
-    const displayed = await playerDuo.isDisplayed()
     await driver.findElement(By.className('bot-btn')).click()
+    const playerDuo = await driver.findElement(By.id('player-duo'))
+    const displayed3 = await playerDuo.isDisplayed()
     await driver.sleep(3000)
-    expect(displayed).toBe(true)
+    expect(displayed3).toBe(true)
     await driver.sleep(3000)
 })
 
